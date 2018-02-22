@@ -1,10 +1,14 @@
 {% extends "layout.html" %}
 
-{% block title %}Forum{% endblock %}
+{% block title %}Puppy Discussion{% endblock %}
 
 {% block content %}
-  <h1>Forum</h1>
-  <p>Description of your forum and user guidelines go here.</p>
+  <h1>Puppy Discussion</h1>
+  <p>This is a positive puppy talk forum ONLY. Please feel free to discuss your favorite pups and funny stories about your own dog or dogs! Adoption shelter suggestions are always welcome. <br> Any negative or cat-related comments will be promptly deleted, and the user will be deleted as well.</p>
+  
+  <ul>
+    <li><a href="/page1">Puppies</a></li>
+  </ul>
   
   <form action='/posted' method="post">
     <textarea name="message" style="width:100%; height:100px;"></textarea>

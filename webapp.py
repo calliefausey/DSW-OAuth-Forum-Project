@@ -39,14 +39,16 @@ def inject_logged_in():
 
 @app.route('/')
 def home():
-    return render_template('home.html', past_posts=posts_to_html())
-
+    return render_template('home.html', past_posts=posts_to_html('posts.json'))
+    
+def posts_to_html("post()"):
+    
 @app.route('/posted', methods=['POST'])
 def post():
     #This function should add the new post to the JSON file of posts and then render home.html and display the posts.  
     #Every post should include the username of the poster and text of the post. 
     try:
-        with open('formInputs.json', 'r+')
+        with open('posts.json', 'r+')
 
 #redirect to GitHub's OAuth page and confirm callback URL
 @app.route('/login')
@@ -74,6 +76,14 @@ def authorized():
             print(inst)
             message='Unable to login, please try again.  '
     return render_template('message.html', message=message)
+    
+ @app.route('/page1')
+def renderPage1():
+    if 'user_data' in session:
+        user_data_pprint = pprint.pformat(session['user_data'])#format the user data nicely
+    else:
+        user_data_pprint = '';
+    return render_template('page1.html',dump_user_data=user_data_pprint)
 
 #the tokengetter is automatically called to check who is logged in.
 @github.tokengetter
