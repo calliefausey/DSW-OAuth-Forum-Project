@@ -54,7 +54,7 @@ def post():
             f.truncate()
             json.dump(data, f)
     except Exception as e:
-        print("Unable to load JSON :(")
+        print("error")
         print(e)
         
     return render_template('home.html', past_posts = posts_to_html())
