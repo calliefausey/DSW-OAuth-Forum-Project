@@ -41,7 +41,6 @@ def inject_logged_in():
 def home():
     return render_template('home.html', past_posts=posts_to_html('posts.json'))
     
-def posts_to_html("post()"):
     
 @app.route('/posted', methods=['POST'])
 def post():
@@ -84,11 +83,28 @@ def renderPage1():
     else:
         user_data_pprint = '';
     return render_template('page1.html',dump_user_data=user_data_pprint)
+    
+ @app.route('/pollPage')
+def renderPollpage():
+    return render_template('pollPage.html')
 
 #the tokengetter is automatically called to check who is logged in.
 @github.tokengetter
 def get_github_oauth_token():
     return session.get('github_token')
+
+def posts_to_html():
+    post_table = Markup("<table class='table table-bordered'> <tr> <th> User </th> <th> Dog Opinion </th> </tr>")
+    try:
+        with open('posts.json', 'r') as formPosts:
+            posts = json.load(formPosts)
+            for p in posts:
+                print("Username: " + p["username"] + " Message: " + p["message"])
+                post_table += Markup("<tr> <td>" + p["username"] + "</td> <td>" + p["message"] + "</td>")
+    except:
+        print("Json Error")
+    post_table += Markup("</table>")
+    return post_table
 
 
 if __name__ == '__main__':
