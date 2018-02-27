@@ -28,7 +28,7 @@ github = oauth.remote_app(
 
 #use a JSON file to store the past posts.  A global list variable doesn't work when handling multiple requests coming in and being handled on different threads
 #Create and set a global variable for the name of you JSON file here.  The file will be created on Heroku, so you don't need to make it in GitHub
-formInputs = "posts.json"
+forumPosts = "posts.json"
 
 
 
@@ -47,16 +47,15 @@ def post():
     username = session['user_data']['login']
     message = request.form['message']
     try:
-        with open('posts.json', 'r+') as f:
-            data = json.load(f)
+        with open('posts.json', 'r+') as forumPosts:
+            data = json.load(forumPosts)
             data.append({"username":username, "message":message})
-            f.seek(0)
-            f.truncate()
-            json.dump(data, f)
+            forumPosts.seek(0)
+            forumPosts.truncate()
+            json.dump(data, forumPosts)
     except Exception as e:
         print("error")
-        print(e)
-        
+        print(e)   
     return render_template('home.html', past_posts = posts_to_html())
     #This function should add the new post to the JSON file of posts and then render home.html and display the posts.  
     #Every post should include the username of the poster and text of the post. 
@@ -89,13 +88,7 @@ def authorized():
             message='Unable to login, please try again.  '
     return render_template('message.html', message=message)
     
- @app.route('/page1')
-def renderPage1():
-    if 'user_data' in session:
-        user_data_pprint = pprint.pformat(session['user_data'])#format the user data nicely
-    else:
-        user_data_pprint = '';
-    return render_template('page1.html',dump_user_data=user_data_pprint)
+
     
  @app.route('/pollPage')
 def renderPollpage():
@@ -107,10 +100,10 @@ def get_github_oauth_token():
     return session.get('github_token')
 
 def posts_to_html():
-    post_table = Markup("<table class='table table-bordered'> <tr> <th> User </th> <th> Dog Opinion </th> </tr>")
     try:
-        with open('posts.json', 'r') as formPosts:
-            posts = json.load(formPosts)
+        with open('posts.json', 'r') as forumPosts:
+            post_table = Markup('<table> <tr> <th> User </th> <th> Dog Opinion </th> </tr>')
+            posts = json.load(forumPosts)
             for p in posts:
                 print("Username: " + p["username"] + " Message: " + p["message"])
                 post_table += Markup("<tr> <td>" + p["username"] + "</td> <td>" + p["message"] + "</td>")
