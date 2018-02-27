@@ -7,20 +7,19 @@
   <p>This is a positive puppy talk forum ONLY. Please feel free to discuss your favorite pups and funny stories about your own dog or dogs! Adoption shelter suggestions are always welcome. <br> Any cat-related comments will be promptly deleted.</p>
   
   <ul>
-    <li><a href="/page1">Puppies</a></li>
-  </ul>
-  
-  <ul>
     <li><a href="/pollPage">Take Our Poll!</a></li>
   </ul>
   
-  <form action='/posted' method="post">
-    <textarea name="message" style="width:100%; height:100px;"></textarea>
-    <br>
-    <input type="submit" value="Post">
-  </form>
-  
-  {{ past_posts }}
+  {% if logged_in %}
+    <form action='/posted' method="post">
+      <textarea name="message" style="width:100%; height:100px;"></textarea>
+      <br>
+      <input type="submit" value="Post">
+    </form>
+  {% else %}
+    <p>Log in to post!</p>
+  {% endif %}
 
+  {{ past_posts }}
 
 {% endblock %}
