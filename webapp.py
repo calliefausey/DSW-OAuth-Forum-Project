@@ -40,7 +40,7 @@ def inject_logged_in():
 
 @app.route('/')
 def home():
-    return render_template('home.html', past_posts=posts_to_html('posts.json'))
+    return render_template('home.html', past_posts=posts_to_html())
     
     
 @app.route('/posted', methods=['POST'])
