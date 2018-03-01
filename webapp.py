@@ -102,14 +102,14 @@ def get_github_oauth_token():
 def posts_to_html():
     try:
         with open('posts.json', 'r') as forumPosts:
-            post_table = Markup('<table> <tr> <th> User </th> <th> Dog Opinion </th> </tr>')
-            posts = json.load(forumPosts)
+            post_table = Markup("<table class='table table-bordered'><tr><th>User</th><th>Post</th></tr>")
+            posts = json.load(posts_data)
             for p in posts:
-                print("Username: " + p["username"] + " Message: " + p["message"])
-                post_table += Markup("<tr> <td>" + p["username"] + "</td> <td>" + p["message"] + "</td>")
-    except:
-        print("Json Error")
-    post_table += Markup("</table>")
+                post_table += Markup("<tr><td>" + p['username'] + "</td><td>" + p["message"] + "</td></tr>")
+            post_table += Markup("</table>")
+    except Exception as e:
+        post_table = ''
+        print(e)
     return post_table
 
 
