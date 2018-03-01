@@ -47,17 +47,20 @@ def home():
 def post():
     username = session['user_data']['login']
     message = request.form['message']
-    try:
-        with open('posts.json', 'r+') as forumPosts:
-            data = json.load(forumPosts)
-            data.append({"username":username, "message":message})
-            forumPosts.seek(0)
-            forumPosts.truncate()
-            json.dump(data, forumPosts)
-    except Exception as e:
-        print("error")
-        print(e)   
-    return render_template('home.html', past_posts = posts_to_html())
+    if 'cat' in message:
+        ptint("no cats!")
+    else:
+        try:
+            with open('posts.json', 'r+') as forumPosts:
+                data = json.load(forumPosts)
+                data.append({"username":username, "message":message})
+                forumPosts.seek(0)
+                forumPosts.truncate()
+                json.dump(data, forumPosts)
+        except Exception as e:
+            print("error")
+            print(e)   
+        return render_template('home.html', past_posts = posts_to_html())
     #This function should add the new post to the JSON file of posts and then render home.html and display the posts.  
     #Every post should include the username of the poster and text of the post. 
     
