@@ -48,8 +48,7 @@ def post():
     username = session['user_data']['login']
     message = request.form['message']
     if 'cat' in message:
-        print("no cats")
-    return render_template('home.html', past_posts = posts_to_html())
+        return redirect("https://www.petsworld.in/blog/10-reasons-why-dogs-are-better-than-cats.html", code=302)
     else:
         try:
             with open('posts.json', 'r+') as forumPosts:
