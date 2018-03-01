@@ -48,7 +48,7 @@ def post():
     username = session['user_data']['login']
     message = request.form['message']
     if 'cat' in message:
-        ptint("no cats!")
+        print("no cats!")
     else:
         try:
             with open('posts.json', 'r+') as forumPosts:
