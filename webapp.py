@@ -102,7 +102,7 @@ def posts_to_html():
     try:
         with open('posts.json', 'r') as forumPosts:
             post_table = Markup("<table class='table table-bordered'><tr><th>User</th><th>Post</th></tr>")
-            posts = json.load(posts_data)
+            posts = json.load(forumPosts)
             for p in posts:
                 post_table += Markup("<tr><td>" + p['username'] + "</td><td>" + p["message"] + "</td></tr>")
             post_table += Markup("</table>")
