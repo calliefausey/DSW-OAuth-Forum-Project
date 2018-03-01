@@ -89,9 +89,7 @@ def authorized():
             message='Unable to login, please try again.  '
     return render_template('message.html', message=message)
     
-
-    
- @app.route('/pollPage')
+@app.route('/pollPage')
 def renderPollpage():
     return render_template('pollPage.html')
 
