@@ -48,7 +48,8 @@ def post():
     username = session['user_data']['login']
     message = request.form['message']
     if 'cat' in message:
-        print("no cats!")
+        print("no cats")
+    return render_template('home.html', past_posts = posts_to_html())
     else:
         try:
             with open('posts.json', 'r+') as forumPosts:
